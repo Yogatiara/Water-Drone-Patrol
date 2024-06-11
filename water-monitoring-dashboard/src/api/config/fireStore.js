@@ -6,12 +6,12 @@ import { getFirestore } from "firebase/firestore";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 const {
-  API_KEY: apiKey,
-  AUTH_DOMAIN: authDomain,
-  PROJECT_ID: projectId,
-  STORAGE_BUCKET: storageBucket,
-  MESSAGING_SENDER_ID: messagingSenderId,
-  APP_ID: appId,
+  VITE_API_KEY: apiKey,
+  VITE_AUTH_DOMAIN: authDomain,
+  VITE_PROJECT_ID: projectId,
+  VITE_STORAGE_BUCKET: storageBucket,
+  VITE_MESSAGING_SENDER_ID: messagingSenderId,
+  VITE_APP_ID: appId,
 } = import.meta.env;
 // Your web app's Firebase configuration
 const firebaseConfig = {
