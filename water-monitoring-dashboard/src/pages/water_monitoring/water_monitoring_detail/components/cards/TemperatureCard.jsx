@@ -1,6 +1,8 @@
+import PropTypes from "prop-types";
+
 import TemperatureIcon from "@assets/icons/temperature icon.png";
 
-export const TemperatureCard = () => {
+export const TemperatureCard = ({ monitoringData }) => {
   return (
     <div className="card w-[450px] rounded-xl border bg-[#eca9b0]">
       <div className="card-body">
@@ -9,11 +11,15 @@ export const TemperatureCard = () => {
           <img src={TemperatureIcon} alt="Temeperature Icon" className="w-28" />
 
           <div className="flex flex-row items-end gap-1 text-gray-600">
-            <h2 className="text-6xl">30.54</h2>
+            <h2 className="text-6xl">{monitoringData.temperature}</h2>
             <span className="text-2xl">&#176;Celcius</span>
           </div>
         </div>
       </div>
     </div>
   );
+};
+
+TemperatureCard.propTypes = {
+  monitoringData: PropTypes.object.isRequired,
 };

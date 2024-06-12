@@ -4,8 +4,8 @@ import DateIcon from "@assets/icons/date icon.png";
 
 export const MonitoringDateCard = ({ monitoringData }) => {
   return (
-    <div className="card w-96 rounded-3xl border bg-slate-100 shadow-xl">
-      <div className="card-body p-6">
+    <div className="w-96 rounded-3xl border bg-slate-100 shadow-xl">
+      <div className="p-6">
         <h2 className="card-title text-2xl">Monitoring Date : </h2>
         <div className="flex flex-row place-content-center items-center gap-4 p-2 pt-3">
           <img src={DateIcon} alt="Temeperature Icon" className="w-8" />
@@ -22,8 +22,5 @@ export const MonitoringDateCard = ({ monitoringData }) => {
 };
 
 MonitoringDateCard.propTypes = {
-  monitoringData: PropTypes.shape({
-    date: PropTypes.string.isRequired,
-    time: PropTypes.string.isRequired,
-  }).isRequired,
+  monitoringData: PropTypes.object.isRequired,
 };

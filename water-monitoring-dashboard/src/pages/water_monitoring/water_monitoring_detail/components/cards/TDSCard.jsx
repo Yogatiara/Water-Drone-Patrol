@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import TDSIcon from "@assets/icons/TDS icon.png";
 
 export const TDSCard = () => {
@@ -16,4 +18,7 @@ export const TDSCard = () => {
       </div>
     </div>
   );
+};
+TDSCard.propTypes = {
+  monitoringData: PropTypes.object.isRequired,
 };

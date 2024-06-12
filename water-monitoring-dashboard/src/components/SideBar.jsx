@@ -3,7 +3,7 @@ import { IoWaterSharp } from "react-icons/io5";
 import { FaHome } from "react-icons/fa";
 import { MdOutlineHistory } from "react-icons/md";
 
-import logoTDS from "@assets/Logo TDS.png";
+import logoDTS from "/Logo TDS.png";
 import { DateTime } from "./DateTime";
 
 export const SideBar = ({ NavLink }) => {
@@ -11,7 +11,7 @@ export const SideBar = ({ NavLink }) => {
     <div className="fixed content-center">
       <ul className="h-[850px] w-80 rounded-2xl bg-slate-100 text-base-content">
         <div className="flex place-content-center pt-6">
-          <img src={logoTDS} alt="logo TDS" className="w-56" />
+          <img src={logoDTS} alt="logo TDS" className="w-56" />
         </div>
         <div className="mx-5 mt-16 flex place-content-center rounded-2xl border-2 bg-slate-100 p-4">
           <DateTime />

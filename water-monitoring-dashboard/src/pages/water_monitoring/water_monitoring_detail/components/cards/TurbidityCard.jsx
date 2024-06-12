@@ -1,6 +1,8 @@
+import PropTypes from "prop-types";
+
 import TurbidityIcon from "@assets/icons/turbidity icon.png";
 
-export const TurbidityCard = () => {
+export const TurbidityCard = ({ monitoringData }) => {
   return (
     <div className="card w-[450px] rounded-xl border bg-[#b4a19e]">
       <div className="card-body">
@@ -9,11 +11,15 @@ export const TurbidityCard = () => {
           <img src={TurbidityIcon} alt="Turbidity Icon" className="w-24" />
 
           <div className="flex flex-row items-end gap-1 text-gray-600">
-            <h2 className="text-6xl">55</h2>
+            <h2 className="text-6xl">{monitoringData.turbidity}</h2>
             <span className="text-2xl">NTU</span>
           </div>
         </div>
       </div>
     </div>
   );
+};
+
+TurbidityCard.propTypes = {
+  monitoringData: PropTypes.object.isRequired,
 };

@@ -12,6 +12,13 @@ export default defineConfig({
   resolve: {
     alias: {
       "@assets": path.resolve(__dirname, "src/assets"),
+      "@api": path.resolve(__dirname, "src/api"),
+      "@page": path.resolve(__dirname, "src/pages"),
+      "@public-components": path.resolve(__dirname, "src/components"),
+      "@water-monitoring-detail-components": path.resolve(
+        __dirname,
+        "src/pages/water_monitoring/water_monitoring_detail/components",
+      ),
     },
   },
 });

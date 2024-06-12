@@ -8,7 +8,7 @@ export const MainLayout = () => {
   return (
     <>
       <div
-        className={`${location.pathname == "/" || location.pathname == "/history" ? "h-screen" : "h-full"} bg-blue-100 p-8 font-firaSans`}
+        className={`${location.pathname == "/" || location.pathname == "/history" || location.pathname == "/water-monitoring" ? "h-screen" : "h-full"} bg-blue-100 p-8 font-firaSans`}
       >
         <SideBar NavLink={NavLink} />
         <div className="ml-[360px] bg-blue-100 pl-8">
