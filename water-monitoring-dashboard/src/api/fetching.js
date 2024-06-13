@@ -1,4 +1,10 @@
-import { collection, getDocs, getDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  getDoc,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 
 import { db } from "./config/fireStore";
 
@@ -29,4 +35,13 @@ const getMonitoringDataById = async (monitoringDocId) => {
   return { id: docSnap.id, ...docSnap.data() };
 };
 
-export { getAllMonitoringData, getSubMonitoringData, getMonitoringDataById };
+const deleteMonitoringData = async (monitoringDocId) => {
+  await deleteDoc(doc(db, "monitoring", monitoringDocId));
+};
+
+export {
+  getAllMonitoringData,
+  getSubMonitoringData,
+  getMonitoringDataById,
+  deleteMonitoringData,
+};

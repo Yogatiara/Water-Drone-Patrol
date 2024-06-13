@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 
+import Swal from "sweetalert2";
+
 import { WaterMonitoringTable } from "./components/WaterMonitroingTable";
 
-import { getAllMonitoringData } from "@api/fetching";
+import { getAllMonitoringData, deleteMonitoringData } from "@api/fetching";
 import { Loading } from "@public-components/Loading";
 
 export const WaterMonitoring = () => {
@@ -22,6 +24,37 @@ export const WaterMonitoring = () => {
       });
   }, []);
 
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.value) {
+        const [filterMonitoringData] = monitoringData.filter(
+          (filterMonitoringData) => filterMonitoringData.id === id,
+        );
+
+        deleteMonitoringData(id);
+
+        Swal.fire({
+          title: "Deleted!",
+          text: `Monitoring at ${filterMonitoringData.time} / ${filterMonitoringData.date} has been deleted`,
+          icon: "success",
+        });
+
+        const updatedMonitoringData = monitoringData.filter(
+          (filterMonitoringData) => filterMonitoringData.id !== id,
+        );
+        setMonitoringData(updatedMonitoringData);
+      }
+    });
+  };
+
   return (
     <>
       <div className="mt-12">
@@ -31,7 +64,10 @@ export const WaterMonitoring = () => {
           </div>
         ) : (
           <div className="mt-10 px-2">
-            <WaterMonitoringTable monitoringData={monitoringData} />
+            <WaterMonitoringTable
+              handleDelete={handleDelete}
+              monitoringData={monitoringData}
+            />
           </div>
         )}
       </div>

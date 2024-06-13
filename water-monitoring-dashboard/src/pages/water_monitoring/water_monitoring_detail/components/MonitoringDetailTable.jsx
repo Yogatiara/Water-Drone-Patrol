@@ -20,13 +20,13 @@ export const MonitoringDetailTable = ({ subMonitoringData }) => {
             <tr key={i} className="border-gray-300">
               <th>{data.id}</th>
               <td>
-                {data.time} PM {data.date}
+                {data.time}, {data.date}
               </td>
               <td>{data.temperature}°C</td>
               <td>{data.ph}</td>
               <td>{data.turbidity} NTU</td>
               <td>{data.tds} PPM</td>
-              <td className="text-red-500">alert</td>
+              <td className="font-semibold text-red-500">alert</td>
             </tr>
           ))}
         </tbody>

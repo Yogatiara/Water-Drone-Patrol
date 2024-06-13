@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 import TDSIcon from "@assets/icons/TDS icon.png";
 
-export const TDSCard = () => {
+export const TDSCard = ({ monitoringData }) => {
   return (
     <div className="card w-[450px] rounded-xl border bg-[#aed1ff]">
       <div className="card-body">
@@ -11,7 +11,7 @@ export const TDSCard = () => {
           <img src={TDSIcon} alt="TDS Icon" className="w-24" />
 
           <div className="flex flex-row items-end gap-1 text-gray-600">
-            <h2 className="text-6xl">30.5</h2>
+            <h2 className="text-6xl">{monitoringData.tds}</h2>
             <span className="text-2xl">PPM</span>
           </div>
         </div>

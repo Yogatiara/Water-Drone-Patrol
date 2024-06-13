@@ -1,8 +1,7 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-export const WaterMonitoringTable = ({ monitoringData }) => {
-  console.log(monitoringData);
+export const WaterMonitoringTable = ({ monitoringData, handleDelete }) => {
   return (
     <>
       <div className="overflow-x-auto">
@@ -23,7 +22,7 @@ export const WaterMonitoringTable = ({ monitoringData }) => {
                 <th>{i + 1}</th>
                 <td>{data.id}</td>
                 <td>
-                  {data.time} PM {data.date}
+                  {data.time}, {data.date}
                 </td>
 
                 <td className="text-lg font-medium uppercase text-red-500">
@@ -35,7 +34,12 @@ export const WaterMonitoringTable = ({ monitoringData }) => {
                       See details
                     </button>
                   </Link>
-                  <button className="btn btn-error text-white">Delete</button>
+                  <button
+                    onClick={() => handleDelete(data.id)}
+                    className="btn btn-error text-white"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
@@ -55,4 +59,5 @@ WaterMonitoringTable.propTypes = {
       status: PropTypes.string.isRequired,
     }),
   ).isRequired,
+  handleDelete: PropTypes.func,
 };

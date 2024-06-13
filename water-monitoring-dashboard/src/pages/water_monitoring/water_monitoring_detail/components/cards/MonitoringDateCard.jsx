@@ -12,7 +12,7 @@ export const MonitoringDateCard = ({ monitoringData }) => {
 
           <div className="flex flex-row items-center">
             <h2 className="text-2xl">
-              {monitoringData.time} PM&nbsp;&nbsp;{monitoringData.date}
+              {monitoringData.time}&nbsp;&nbsp;{monitoringData.date}
             </h2>
           </div>
         </div>
