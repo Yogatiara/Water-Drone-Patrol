@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { IoWaterSharp } from "react-icons/io5";
-import { FaHome } from "react-icons/fa";
+// import { FaHome } from "react-icons/fa";
 import { MdOutlineHistory } from "react-icons/md";
 
 import logoDTS from "/Logo TDS.png";
@@ -17,12 +17,12 @@ export const SideBar = ({ NavLink }) => {
           <DateTime />
         </div>
         <ul className="menu mx-5 mt-2 space-y-6 rounded-2xl border-2 p-3 py-4">
-          <li>
+          {/* <li>
             <NavLink to="/" className="hover:bg-blue-100">
               <FaHome className="text-3xl text-amber-950" />
               <span className="text-xl font-normal">Home</span>
             </NavLink>
-          </li>
+          </li> */}
           <li>
             <NavLink to="/water-monitoring" className="hover:bg-blue-100">
               <IoWaterSharp className="text-3xl text-blue-600" />

@@ -2,6 +2,13 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 export const WaterMonitoringTable = ({ monitoringData, handleDelete }) => {
+  const sortedData = monitoringData.sort((a, b) => {
+    const timestampA = new Date(`${a.date} ${a.time}`).getTime();
+    const timestampB = new Date(`${b.date} ${b.time}`).getTime();
+
+    return timestampB - timestampA;
+  });
+
   return (
     <>
       <div className="overflow-x-auto">
@@ -17,15 +24,16 @@ export const WaterMonitoringTable = ({ monitoringData, handleDelete }) => {
             </tr>
           </thead>
           <tbody className="border-gray-300">
-            {monitoringData.map((data, i) => (
-              <tr key={i} className="border-gray-300 text-base">
-                <th>{i + 1}</th>
+            {sortedData.map((data, i) => (
+              <tr key={data.id} className="border-gray-300 text-base">
+                <td>{i + 1}</td>
                 <td>{data.id}</td>
                 <td>
                   {data.time}, {data.date}
                 </td>
-
-                <td className="text-lg font-medium uppercase text-red-500">
+                <td
+                  className={`text-lg font-medium uppercase ${data.status === "alert" ? "text-red-500" : "text-green-600"}`}
+                >
                   {data.status}
                 </td>
                 <td className="space-x-3">

@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
+
 import PropTypes from "prop-types";
 
-export const MonitoringDetailTable = ({ subMonitoringData }) => {
+export const MonitoringDetailTable = ({ records }) => {
   return (
     <div className="overflow-x-auto">
       <table className="table table-zebra border border-gray-300 text-center">
@@ -12,21 +14,19 @@ export const MonitoringDetailTable = ({ subMonitoringData }) => {
             <th>pH</th>
             <th>Turbidity</th>
             <th>TDS</th>
-            <th>Status</th>
           </tr>
         </thead>
         <tbody className="border-gray-300">
-          {subMonitoringData.map((data, i) => (
+          {records.map((data, i) => (
             <tr key={i} className="border-gray-300">
               <th>{data.id}</th>
               <td>
                 {data.time}, {data.date}
               </td>
               <td>{data.temperature}°C</td>
-              <td>{data.ph}</td>
+              <td>pH {data.ph}</td>
               <td>{data.turbidity} NTU</td>
               <td>{data.tds} PPM</td>
-              <td className="font-semibold text-red-500">alert</td>
             </tr>
           ))}
         </tbody>
@@ -36,12 +36,12 @@ export const MonitoringDetailTable = ({ subMonitoringData }) => {
 };
 
 MonitoringDetailTable.propTypes = {
-  subMonitoringData: PropTypes.arrayOf(
+  records: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       date: PropTypes.string.isRequired,
       time: PropTypes.string.isRequired,
-      status: PropTypes.string.isRequired,
+
       ph: PropTypes.string.isRequired,
       turbidity: PropTypes.string.isRequired,
       tds: PropTypes.string.isRequired,
