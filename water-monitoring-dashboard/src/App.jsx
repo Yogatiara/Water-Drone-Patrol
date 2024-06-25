@@ -5,7 +5,7 @@ import { WaterMonitoringDetail } from "./pages/water_monitoring/water_monitoring
 import { History } from "./pages/history/History";
 import { WaterMonitoring } from "./pages/water_monitoring/WaterMonitoring";
 
-export const App = () => {
+const App = () => {
   return (
     <Router>
       <Routes>
@@ -20,3 +20,4 @@ export const App = () => {
     </Router>
   );
 };
+export default App;
