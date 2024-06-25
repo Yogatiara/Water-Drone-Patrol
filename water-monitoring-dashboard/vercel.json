@@ -1,9 +1,3 @@
 {
-  "rewrites": [
-    {
-      "source": "/water-monitoring/(.*)",
-      "destination": "/water-monitoring/$1"
-    },
-    { "source": "/water-monitoring", "destination": "/water-monitoring" }
-  ]
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
