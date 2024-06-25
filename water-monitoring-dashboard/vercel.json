@@ -1,7 +1,8 @@
 {
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
   "redirects": [
     {
-      "source": "/(.*)",
+      "source": "/",
       "destination": "/water-monitoring",
       "permanent": true
     }
