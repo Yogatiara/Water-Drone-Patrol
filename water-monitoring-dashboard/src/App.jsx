@@ -10,10 +10,10 @@ export const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<MainLayout />}>
-          {/* <Route path="water-monitoring">
+          <Route path="water-monitoring">
             <Route index={true} element={<WaterMonitoring />} />
             <Route path=":id" element={<WaterMonitoringDetail />} />
-          </Route> */}
+          </Route>
           <Route path="history" element={<History />} />
         </Route>
       </Routes>
