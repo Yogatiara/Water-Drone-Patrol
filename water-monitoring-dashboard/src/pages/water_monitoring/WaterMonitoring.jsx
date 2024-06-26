@@ -5,11 +5,12 @@ import Swal from "sweetalert2";
 import { WaterMonitoringTable } from "./components/WaterMonitroingTable";
 
 import { getAllMonitoringData, deleteMonitoringData } from "@api/fetching";
-import { Loading } from "@public-components/Loading";
-
+// import { Loading } from "@public-components/Loading";
+import { Loading, Pagination } from "@public-components/";
 export const WaterMonitoring = () => {
   const [monitoringData, setMonitoringData] = useState();
   const [loading, setLoading] = useState(true);
+  const [curentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     getAllMonitoringData()
@@ -55,6 +56,34 @@ export const WaterMonitoring = () => {
     });
   };
 
+  const recordsPerPage = 10;
+  let records;
+  let numbers;
+
+  if (monitoringData) {
+    const lastIndex = curentPage * recordsPerPage;
+    const firstIndex = lastIndex - recordsPerPage;
+    records = monitoringData.slice(firstIndex, lastIndex);
+    const npage = Math.ceil(monitoringData.length / recordsPerPage);
+    numbers = [...Array(npage + 1).keys()].slice(1);
+  }
+
+  const prefPage = () => {
+    if (curentPage !== 1) {
+      setCurrentPage(curentPage - 1);
+    }
+  };
+
+  const nextPage = () => {
+    if (curentPage !== numbers.length) {
+      setCurrentPage(curentPage + 1);
+    }
+  };
+
+  const changeCpage = (i) => {
+    setCurrentPage(i);
+  };
+
   return (
     <>
       <div className="mt-12">
@@ -66,7 +95,14 @@ export const WaterMonitoring = () => {
           <div className="mt-10 px-2">
             <WaterMonitoringTable
               handleDelete={handleDelete}
-              monitoringData={monitoringData}
+              monitoringData={records}
+            />
+            <Pagination
+              prefPage={prefPage}
+              numbers={numbers}
+              changeCpage={changeCpage}
+              curentPage={curentPage}
+              nextPage={nextPage}
             />
           </div>
         )}

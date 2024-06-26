@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-const Pagination = ({
+export const Pagination = ({
   prefPage,
   numbers,
   changeCpage,
@@ -56,5 +56,3 @@ Pagination.propTypes = {
   curentPage: PropTypes.number.isRequired,
   nextPage: PropTypes.func.isRequired,
 };
-
-export default Pagination;

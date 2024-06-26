@@ -20,7 +20,7 @@ import {
   // getSubMonitoringData,
 } from "../../../api/fetching";
 import { Loading } from "@public-components/Loading";
-import Pagination from "../../../components/Pagination";
+import { Pagination } from "../../../components";
 
 export const WaterMonitoringDetail = () => {
   const [monitoringData, setMonitoringData] = useState(null);
