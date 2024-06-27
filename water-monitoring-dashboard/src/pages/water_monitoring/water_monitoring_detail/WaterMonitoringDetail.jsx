@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { IoReturnDownBack } from "react-icons/io5";
 
 import { MonitoringDetailTable } from "./components/MonitoringDetailTable";
 
@@ -114,6 +115,13 @@ export const WaterMonitoringDetail = () => {
           </div>
         ) : (
           <>
+            <Link
+              to={"/water-monitoring"}
+              className="flex w-24 items-center gap-3 text-2xl hover:underline"
+            >
+              <IoReturnDownBack className="text-3xl" />
+              Back
+            </Link>
             <div className="mt-6 flex place-content-center items-center gap-16 rounded-2xl">
               <div className="flex flex-col items-center gap-10 border-r-2 border-r-gray-400 pr-16">
                 <MonitoringDateCard monitoringData={monitoringData} />

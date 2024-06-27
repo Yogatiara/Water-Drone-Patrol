@@ -11,12 +11,11 @@ export const WaterMonitoringTable = ({ monitoringData, handleDelete }) => {
 
   return (
     <>
-      <div className="overflow-x-auto">
+      <div className="w-[850px] overflow-x-auto">
         <table className="table table-zebra border border-gray-300 text-center">
           {/* head */}
           <thead className="text-md bg-[#5daeff] uppercase text-white">
             <tr className="border-gray-300">
-              <th>No</th>
               <th>Id</th>
               <th>Date Time</th>
               <th>Status</th>
@@ -25,9 +24,8 @@ export const WaterMonitoringTable = ({ monitoringData, handleDelete }) => {
           </thead>
           <tbody className="border-gray-300">
             {sortedData.map((data, i) => (
-              <tr key={data.id} className="border-gray-300 text-base">
-                <td>{i + 1}</td>
-                <td>{data.id}</td>
+              <tr key={i} className="border-gray-300 text-base">
+                <td className="font-bold">{data.id}</td>
                 <td>
                   {data.time}, {data.date}
                 </td>

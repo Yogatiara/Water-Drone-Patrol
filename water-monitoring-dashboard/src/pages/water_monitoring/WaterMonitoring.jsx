@@ -7,6 +7,7 @@ import { WaterMonitoringTable } from "./components/WaterMonitroingTable";
 import { getAllMonitoringData, deleteMonitoringData } from "@api/fetching";
 // import { Loading } from "@public-components/Loading";
 import { Loading, Pagination } from "@public-components/";
+import { Chart } from "../../components/Chart";
 export const WaterMonitoring = () => {
   const [monitoringData, setMonitoringData] = useState();
   const [loading, setLoading] = useState(true);
@@ -56,7 +57,7 @@ export const WaterMonitoring = () => {
     });
   };
 
-  const recordsPerPage = 10;
+  const recordsPerPage = 5;
   let records;
   let numbers;
 
@@ -84,26 +85,31 @@ export const WaterMonitoring = () => {
     setCurrentPage(i);
   };
 
+  console.log(monitoringData);
+
   return (
     <>
-      <div className="mt-12">
+      <div className="mt-24">
         {loading ? (
           <div className="fixed h-screen px-[580px] py-48">
             <Loading />
           </div>
         ) : (
-          <div className="mt-10 px-2">
-            <WaterMonitoringTable
-              handleDelete={handleDelete}
-              monitoringData={records}
-            />
-            <Pagination
-              prefPage={prefPage}
-              numbers={numbers}
-              changeCpage={changeCpage}
-              curentPage={curentPage}
-              nextPage={nextPage}
-            />
+          <div className="flex items-center gap-16">
+            <Chart monitoringData={monitoringData} />
+            <div className="mt-10 px-2">
+              <WaterMonitoringTable
+                handleDelete={handleDelete}
+                monitoringData={records}
+              />
+              <Pagination
+                prefPage={prefPage}
+                numbers={numbers}
+                changeCpage={changeCpage}
+                curentPage={curentPage}
+                nextPage={nextPage}
+              />
+            </div>
           </div>
         )}
       </div>
