@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
   google_fonts: ^6.2.1
   flutter_launcher_icons: ^0.13.1
+  http: ^1.2.1
+  network_info_plus: ^5.0.3
 
 dev_dependencies:
   flutter_test:

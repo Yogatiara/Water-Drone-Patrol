@@ -1,4 +1,4 @@
-import 'package:boat_controller/ui/controller_page.dart';
+import 'package:boat_controller/ui/pages/controller_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
