@@ -50,7 +50,7 @@ class _FormPageState extends State<FormPage> {
         body: Stack(
           children: [
             Positioned(top: 80, child: buildTop()),
-            Positioned(bottom: 0, child: buildBottom())
+            Positioned(bottom: -5, right: -3, left: -3, child: buildBottom())
           ],
         ),
       ),
@@ -101,7 +101,7 @@ class _FormPageState extends State<FormPage> {
         child: Card(
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30), topRight: Radius.circular(30))),
+                  topLeft: Radius.circular(32), topRight: Radius.circular(32))),
           child: Padding(
             padding: const EdgeInsets.all(32.0),
             child: buildForm(),
