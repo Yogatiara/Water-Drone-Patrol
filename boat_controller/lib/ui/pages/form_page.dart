@@ -178,6 +178,7 @@ class _FormPageState extends State<FormPage> {
       controller: controller,
       focusNode: focusNode,
       decoration: InputDecoration(
+        hintText: 'Example: 192.168.1.56:80',
         suffixIcon: Icon(
           Icons.done,
           color: isFocused ? Colors.blue : Colors.blue.shade300,
