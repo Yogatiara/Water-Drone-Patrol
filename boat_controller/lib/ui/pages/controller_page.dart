@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'dart:async';
 
 import 'package:boat_controller/model/controller.dart';
-import 'package:boat_controller/ui/widget/app_bar_widget.dart';
+// import 'package:boat_controller/ui/widget/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -53,7 +53,20 @@ class _ControllerPageState extends State<ControllerPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: const AppBarWidget(),
+        appBar: AppBar(
+          title: Center(
+            child: Text(
+              "Water Drone Patrol Controller",
+              style: GoogleFonts.firaSans(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          backgroundColor: const Color.fromRGBO(93, 174, 255, 1.0),
+          shadowColor: Colors.black54,
+          elevation: 20,
+        ),
         body: Padding(
           padding: const EdgeInsets.only(top: 18),
           child: Column(
