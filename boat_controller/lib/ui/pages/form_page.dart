@@ -14,7 +14,15 @@ class _FormPageState extends State<FormPage> {
   String? valueChoose;
   final FocusNode focusNode = FocusNode();
   bool isFocused = false;
-  List<String> listItem = ["Danau itk", "Waduk manggar", "Danau bpp"];
+  List<String> listItem = [
+    "Danau itk",
+    "Waduk manggar",
+    "Danau bpp",
+    "test",
+    "test",
+    "test",
+    "Test",
+  ];
   TextEditingController ipAddress = TextEditingController();
   @override
   void initState() {
@@ -175,6 +183,7 @@ class _FormPageState extends State<FormPage> {
 
   Widget buildInputField(TextEditingController controller) {
     return TextField(
+      cursorColor: Colors.blue.shade300,
       controller: controller,
       focusNode: focusNode,
       decoration: InputDecoration(
@@ -200,12 +209,16 @@ class _FormPageState extends State<FormPage> {
     return Container(
       padding: const EdgeInsets.only(left: 5),
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.blue.shade300, width: 1),
-          borderRadius: BorderRadius.circular(15)),
+        border: Border.all(color: Colors.blue.shade300, width: 1),
+        borderRadius: BorderRadius.circular(15),
+      ),
       child: DropdownButton(
+        menuMaxHeight: 200,
         padding: const EdgeInsets.only(left: 10, right: 10),
-        hint: Text('choose location',
-            style: GoogleFonts.firaSans(color: Colors.grey.shade800)),
+        hint: Text(
+          'choose location',
+          style: GoogleFonts.firaSans(color: Colors.grey.shade800),
+        ),
         isExpanded: true,
         iconSize: 30,
         iconEnabledColor: Colors.blue.shade300,
@@ -216,14 +229,82 @@ class _FormPageState extends State<FormPage> {
             valueChoose = newValue;
           });
         },
-        items: listItem.map((valueItem) {
-          return DropdownMenuItem(
+        items: [
+          ...listItem.map((valueItem) {
+            return DropdownMenuItem(
               value: valueItem,
               child: Text(
                 valueItem,
                 style: GoogleFonts.firaSans(color: Colors.grey.shade800),
-              ));
-        }).toList(),
+              ),
+            );
+          }),
+          DropdownMenuItem(
+            value: "1",
+            enabled: false,
+            child: ElevatedButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    String newLocation = '';
+                    return AlertDialog(
+                      title: buildText("Add Monitoring Location", 18),
+                      content: TextField(
+                        onChanged: (value) {
+                          newLocation = value;
+                        },
+                        cursorColor: Colors.blue.shade300,
+                        // controller: controller,
+                        // focusNode: focusNode,
+                        decoration: InputDecoration(
+                          hintText: 'Example: Danau ITK',
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Colors.blue.shade300,
+                                width: 1), // Warna garis bawah saat tidak fokus
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Colors.blue,
+                                width: 2), // Warna garis bawah saat fokus
+                          ),
+                        ),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              if (newLocation.isNotEmpty) {
+                                valueChoose = newLocation;
+                                if (!listItem.contains(newLocation)) {
+                                  listItem.add(newLocation);
+                                }
+                              }
+                              Navigator.of(context).pop();
+                            });
+                          },
+                          child: Text('Add',
+                              style: GoogleFonts.firaSans(
+                                  color: Colors.grey.shade800)),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(2),
+                ),
+                elevation: 5,
+                backgroundColor: Colors.blue.shade300,
+              ),
+              child: Text('Add Location',
+                  style: GoogleFonts.firaSans(color: Colors.white)),
+            ),
+          ),
+        ],
       ),
     );
   }
