@@ -15,7 +15,7 @@ class ControllerPage extends StatefulWidget {
 }
 
 class _ControllerPageState extends State<ControllerPage> {
-  PostResult? postResult;
+  Controller? controller;
   bool isSwitched = false;
   Color buttonColor = Colors.blue;
   Timer? _timer;
@@ -39,9 +39,9 @@ class _ControllerPageState extends State<ControllerPage> {
   void handleApiRequest(path) async {
     log('succes: $path');
     try {
-      PostResult result = await PostResult.connectToApi(path);
+      Controller result = await Controller.connectToApi(path);
       setState(() {
-        postResult = result;
+        controller = result;
       });
       log('API Response: ${result.data}');
     } catch (e) {

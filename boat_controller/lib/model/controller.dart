@@ -1,33 +1,33 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:network_info_plus/network_info_plus.dart';
+// import 'package:network_info_plus/network_info_plus.dart';
 
-class PostResult {
+class Controller {
   final String data;
 
-  PostResult({
+  Controller({
     required this.data,
   });
 
-  factory PostResult.createPostResult(Map<String, dynamic> object) {
-    return PostResult(
+  factory Controller.createController(Map<String, dynamic> object) {
+    return Controller(
       data: object['data'],
     );
   }
 
-  static Future<PostResult> connectToApi(String path) async {
-    final info = NetworkInfo();
-    String? ipAddress = await info.getWifiIP();
+  static Future<Controller> connectToApi(String path) async {
+    // final info = NetworkInfo();
+    // String? ipAddress = await info.getWifiIP();
 
-    if (ipAddress == null) {
-      throw Exception('Failed to get IP address');
-    }
+    // if (ipAddress == null) {
+    //   throw Exception('Failed to get IP address');
+    // }
 
     var apiResult = await http.get(Uri.http('192.168.1.7:80', '/$path'));
 
     if (apiResult.statusCode == 200) {
       var jsonData = jsonDecode(apiResult.body);
-      return PostResult.createPostResult(jsonData);
+      return Controller.createController(jsonData);
     } else {
       throw Exception('Failed to load data');
     }

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class FormPage extends StatefulWidget {
-  const FormPage({super.key});
+class ConnectionFormPage extends StatefulWidget {
+  const ConnectionFormPage({super.key});
 
   @override
-  State<FormPage> createState() => _FormPageState();
+  State<ConnectionFormPage> createState() => _ConnectionFormPageState();
 }
 
-class _FormPageState extends State<FormPage> {
+class _ConnectionFormPageState extends State<ConnectionFormPage> {
   late Size mediaSize;
 
   String? valueChoose;
@@ -18,10 +18,10 @@ class _FormPageState extends State<FormPage> {
     "Danau itk",
     "Waduk manggar",
     "Danau bpp",
-    "test",
-    "test",
-    "test",
-    "Test",
+    "test1",
+    "test2",
+    "test3",
+    "Test4",
   ];
   TextEditingController ipAddress = TextEditingController();
   @override
@@ -241,9 +241,9 @@ class _FormPageState extends State<FormPage> {
           }),
           DropdownMenuItem(
             value: "1",
-            enabled: false,
             child: ElevatedButton(
               onPressed: () {
+                Navigator.of(context).pop();
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -275,11 +275,24 @@ class _FormPageState extends State<FormPage> {
                         TextButton(
                           onPressed: () {
                             setState(() {
-                              if (newLocation.isNotEmpty) {
-                                valueChoose = newLocation;
-                                if (!listItem.contains(newLocation)) {
-                                  listItem.add(newLocation);
+                              if (listItem.contains(newLocation)) {
+                                buildSnackBar(
+                                    context,
+                                    Colors.orange,
+                                    Icons.warning_amber_outlined,
+                                    "Location name already exists");
+                              } else {
+                                if (newLocation.isNotEmpty) {
+                                  valueChoose = newLocation;
+                                  if (!listItem.contains(newLocation)) {
+                                    listItem.add(newLocation);
+                                  }
                                 }
+                                buildSnackBar(
+                                    context,
+                                    Colors.green,
+                                    Icons.done_rounded,
+                                    "Location name successfuly added");
                               }
                               Navigator.of(context).pop();
                             });
@@ -323,5 +336,30 @@ class _FormPageState extends State<FormPage> {
         child: Text('CONNECT',
             style: GoogleFonts.firaSans(
                 color: Colors.white, fontWeight: FontWeight.w400)));
+  }
+
+  void buildSnackBar(
+      BuildContext context, MaterialColor color, IconData icon, String info) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: color.shade300,
+        content: Row(
+          children: [
+            Icon(
+              icon,
+              color: Colors.white,
+              size: 25.0,
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            Text(
+              info,
+              style: GoogleFonts.firaSans(
+                  color: Colors.white,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400),
+            ),
+          ],
+        )));
   }
 }

@@ -1,5 +1,5 @@
 import 'package:boat_controller/ui/pages/controller_page.dart';
-import 'package:boat_controller/ui/pages/form_page.dart';
+import 'package:boat_controller/ui/pages/connection_form_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -21,7 +21,7 @@ class MainApp extends StatelessWidget {
       //     selectionHandleColor: Colors.blue.shade300,
       //   ),
       // ),
-      home: FormPage(),
+      home: ConnectionFormPage(),
     );
     // return const ControllerPage();
   }
