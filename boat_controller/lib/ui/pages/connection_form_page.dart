@@ -112,7 +112,15 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
                   topLeft: Radius.circular(32), topRight: Radius.circular(32))),
           child: Padding(
             padding: const EdgeInsets.all(32.0),
-            child: buildForm(),
+            child: Column(
+              children: [
+                buildForm(),
+                const SizedBox(
+                  height: 40,
+                ),
+                buildConnectButton()
+              ],
+            ),
           ),
         ));
   }
@@ -167,10 +175,6 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
           height: 10,
         ),
         buildInputField(ipAddress),
-        const SizedBox(
-          height: 40,
-        ),
-        buildConnectButton()
       ],
     );
   }
@@ -206,6 +210,7 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
   }
 
   Widget buildDropdownField() {
+    String value = "choose location";
     return Container(
       padding: const EdgeInsets.only(left: 5),
       decoration: BoxDecoration(
@@ -230,6 +235,12 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
           });
         },
         items: [
+          DropdownMenuItem(
+              value: value,
+              child: Text(
+                value,
+                style: GoogleFonts.firaSans(color: Colors.grey.shade800),
+              )),
           ...listItem.map((valueItem) {
             return DropdownMenuItem(
               value: valueItem,
@@ -240,7 +251,7 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
             );
           }),
           DropdownMenuItem(
-            value: "1",
+            value: "add button",
             child: ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
@@ -287,12 +298,12 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
                                   if (!listItem.contains(newLocation)) {
                                     listItem.add(newLocation);
                                   }
+                                  buildSnackBar(
+                                      context,
+                                      Colors.green,
+                                      Icons.done_rounded,
+                                      "Location name successfuly added");
                                 }
-                                buildSnackBar(
-                                    context,
-                                    Colors.green,
-                                    Icons.done_rounded,
-                                    "Location name successfuly added");
                               }
                               Navigator.of(context).pop();
                             });

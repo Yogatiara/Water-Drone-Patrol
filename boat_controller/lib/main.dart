@@ -1,7 +1,9 @@
+import 'package:boat_controller/ui/pages/connection_progres_page.dart';
 import 'package:boat_controller/ui/pages/controller_page.dart';
 import 'package:boat_controller/ui/pages/connection_form_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   // WidgetsFlutterBinding.ensureInitialized();
@@ -21,8 +23,9 @@ class MainApp extends StatelessWidget {
       //     selectionHandleColor: Colors.blue.shade300,
       //   ),
       // ),
-      home: ConnectionFormPage(),
+      home: ConnectionProgresPage(),
     );
     // return const ControllerPage();
+    // return const ConnectionProgresPage();
   }
 }
