@@ -1,9 +1,11 @@
 import 'package:boat_controller/ui/font/app_font.dart';
+import 'package:boat_controller/ui/pages/connection_page/connection_progress_page.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class ConnectionFailedPage extends StatelessWidget {
-  const ConnectionFailedPage({super.key});
+  final String ipAddress;
+  const ConnectionFailedPage({super.key, required this.ipAddress});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,10 @@ class ConnectionFailedPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(
+                          context, '/connectionFormPage');
+                    },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
@@ -63,7 +68,16 @@ class ConnectionFailedPage extends StatelessWidget {
                   width: 15,
                 ),
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // Navigator.pushReplacementNamed(
+                      //     context, '/connectionProgressPage');
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => ConnectionProgressPage(
+                              id: ipAddress), // Kirim parameter id
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       shape: RoundedRectangleBorder(

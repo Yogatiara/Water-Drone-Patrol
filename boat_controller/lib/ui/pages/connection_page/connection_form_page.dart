@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:boat_controller/model/controller.dart';
 import 'package:boat_controller/ui/pages/connection_page/connection_progress_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ConnectionFormPage extends StatefulWidget {
@@ -17,6 +20,7 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
   String? valueChoose;
   final FocusNode focusNode = FocusNode();
   bool isFocused = false;
+
   List<String> listItem = [
     "Danau itk",
     "Waduk manggar",
@@ -35,6 +39,10 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
         isFocused = focusNode.hasFocus;
       });
     });
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
   }
 
   @override
@@ -190,7 +198,7 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
   }
 
   Widget buildInputField(TextEditingController controller) {
-    return TextField(
+    return TextFormField(
       cursorColor: Colors.blue.shade300,
       controller: controller,
       focusNode: focusNode,
@@ -340,9 +348,14 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
   Widget buildConnectButton(context) {
     return ElevatedButton(
         onPressed: () {
-          // ConnectionProgressPage.pageInitiation();
-          Navigator.pushReplacementNamed(context, '/connectionProgressPage');
-          // debugPrint('Test');
+          // Controller.getApi(ipAddress.hashCode);
+          // Navigator.pushReplacementNamed(context, '/connectionProgressPage');
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => ConnectionProgressPage(
+                  id: ipAddress.text), // Kirim parameter id
+            ),
+          );
         },
         style: ElevatedButton.styleFrom(
             shape: const StadiumBorder(),

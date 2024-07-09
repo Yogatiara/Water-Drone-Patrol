@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:boat_controller/model/controller.dart';
 // import 'package:boat_controller/ui/widget/app_bar_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 // import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,6 +24,29 @@ class _ControllerPageState extends State<ControllerPage> {
   bool isPressedLeft = false;
   bool isPressedRight = false;
   bool isPressedGas = false;
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations(
+  //     [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+
+  @override
+  void initState() {
+    super.initState();
+    // Mengatur orientasi menjadi landscape saat halaman ini dibuka
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+    ]);
+  }
+
+  @override
+  void dispose() {
+    // Mengembalikan orientasi menjadi potrait saat halaman ini ditutup
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    super.dispose();
+  }
 
   void handleOnPressed(direction, command) {
     log('succes: $direction');

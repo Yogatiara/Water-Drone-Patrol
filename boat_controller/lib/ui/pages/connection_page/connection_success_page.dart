@@ -23,7 +23,9 @@ class ConnectionSuccessPage extends StatelessWidget {
               height: 30,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/controllerPage');
+              },
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size.fromWidth(110),
                 elevation: 3,

@@ -9,7 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 
 class ConnectionProgressPage extends StatefulWidget {
-  const ConnectionProgressPage({super.key});
+  final String id;
+  const ConnectionProgressPage({super.key, required this.id});
 
   @override
   State<ConnectionProgressPage> createState() => _ConnectionProgressPageState();
@@ -20,16 +21,22 @@ class _ConnectionProgressPageState extends State<ConnectionProgressPage>
   @override
   void initState() {
     super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     // try {
     // await Controller.getApi();
-
-    handleApiRequest();
+    handleApiRequest(widget.id);
   }
 
-  void handleApiRequest() async {
+  void handleApiRequest(String id) async {
+    int number = int.parse(id);
     try {
-      await Controller.getApi();
+      await Controller.getApi(number);
+      print(id);
+
       log('Success api');
       Future.delayed(const Duration(seconds: 5), () {
         Navigator.of(context).pushReplacement(
@@ -37,10 +44,12 @@ class _ConnectionProgressPageState extends State<ConnectionProgressPage>
       });
       // log('API Response: ${result.data}');
     } catch (e) {
+      print(id);
+
       log('Failed to load data: $e');
       Future.delayed(const Duration(seconds: 7), () {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => const ConnectionFailedPage()));
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (_) => ConnectionFailedPage(ipAddress: id)));
       });
     }
   }
