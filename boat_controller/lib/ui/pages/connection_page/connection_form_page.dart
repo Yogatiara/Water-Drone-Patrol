@@ -1,3 +1,5 @@
+import 'package:boat_controller/model/controller.dart';
+import 'package:boat_controller/ui/pages/connection_page/connection_progress_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -10,6 +12,7 @@ class ConnectionFormPage extends StatefulWidget {
 
 class _ConnectionFormPageState extends State<ConnectionFormPage> {
   late Size mediaSize;
+  Controller? controller;
 
   String? valueChoose;
   final FocusNode focusNode = FocusNode();
@@ -58,7 +61,8 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
         body: Stack(
           children: [
             Positioned(top: 80, child: buildTop()),
-            Positioned(bottom: -5, right: -3, left: -3, child: buildBottom())
+            Positioned(
+                bottom: -5, right: -3, left: -3, child: buildBottom(context))
           ],
         ),
       ),
@@ -103,7 +107,7 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
     );
   }
 
-  Widget buildBottom() {
+  Widget buildBottom(context) {
     return SizedBox(
         width: mediaSize.width,
         child: Card(
@@ -118,7 +122,7 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
                 const SizedBox(
                   height: 40,
                 ),
-                buildConnectButton()
+                buildConnectButton(context)
               ],
             ),
           ),
@@ -333,10 +337,12 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
     );
   }
 
-  Widget buildConnectButton() {
+  Widget buildConnectButton(context) {
     return ElevatedButton(
         onPressed: () {
-          debugPrint('Test');
+          // ConnectionProgressPage.pageInitiation();
+          Navigator.pushReplacementNamed(context, '/connectionProgressPage');
+          // debugPrint('Test');
         },
         style: ElevatedButton.styleFrom(
             shape: const StadiumBorder(),

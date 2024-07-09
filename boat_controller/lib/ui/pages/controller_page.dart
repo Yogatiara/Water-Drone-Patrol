@@ -39,11 +39,11 @@ class _ControllerPageState extends State<ControllerPage> {
   void handleApiRequest(path) async {
     log('succes: $path');
     try {
-      Controller result = await Controller.connectToApi(path);
+      Controller result = await Controller.getApi(path);
       setState(() {
         controller = result;
       });
-      log('API Response: ${result.data}');
+      // log('API Response: ${result.data}');
     } catch (e) {
       log('Failed to load data: $e');
     }

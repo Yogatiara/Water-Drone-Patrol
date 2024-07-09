@@ -1,9 +1,7 @@
-import 'package:boat_controller/ui/pages/connection_progres_page.dart';
-import 'package:boat_controller/ui/pages/controller_page.dart';
-import 'package:boat_controller/ui/pages/connection_form_page.dart';
+import 'package:boat_controller/ui/pages/connection_page/connection_progress_page.dart';
+import 'package:boat_controller/ui/pages/connection_page/connection_form_page.dart';
+import 'package:boat_controller/ui/pages/connection_page/connection_success_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   // WidgetsFlutterBinding.ensureInitialized();
@@ -17,13 +15,16 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       // theme: ThemeData(
       //   textSelectionTheme: TextSelectionThemeData(
       //     selectionHandleColor: Colors.blue.shade300,
       //   ),
       // ),
-      home: ConnectionProgresPage(),
+      home: const ConnectionFormPage(),
+      routes: {
+        '/connectionProgressPage': (context) => const ConnectionProgressPage()
+      },
     );
     // return const ControllerPage();
     // return const ConnectionProgresPage();
