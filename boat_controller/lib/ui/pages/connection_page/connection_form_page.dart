@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+final formKey = GlobalKey<FormState>();
+
 class ConnectionFormPage extends StatefulWidget {
   const ConnectionFormPage({super.key});
 
@@ -20,20 +22,13 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
   String? valueChoose;
   final FocusNode focusNode = FocusNode();
   bool isFocused = false;
+  bool isIpValid = true;
 
-  List<String> listItem = [
-    "Danau itk",
-    "Waduk manggar",
-    "Danau bpp",
-    "test1",
-    "test2",
-    "test3",
-    "Test4",
-  ];
   TextEditingController ipAddress = TextEditingController();
   @override
   void initState() {
     super.initState();
+
     focusNode.addListener(() {
       setState(() {
         isFocused = focusNode.hasFocus;
@@ -47,10 +42,32 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
 
   @override
   void dispose() {
+    // ipAddress.removeListener(validateIpAddress as VoidCallback);
     ipAddress.dispose();
     focusNode.dispose();
     super.dispose();
   }
+
+  String? validateIpAddress(String? ipAddress) {
+    int number = int.parse(ipAddress as String);
+    if (ipAddress == null || ipAddress.isEmpty || number is int) {
+      return 'Please fill a number value';
+    } else if (int.parse(ipAddress as String) <= 0) {
+      return 'Please fill a number more than 0';
+    } else {
+      return null;
+    }
+  }
+
+  List<String> listItem = [
+    "Danau itk",
+    "Waduk manggar",
+    "Danau bpp",
+    "test1",
+    "test2",
+    "test3",
+    "Test4",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -197,26 +214,35 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
             fontSize: fontSize, color: Colors.grey.shade800));
   }
 
+  // ip address input field
   Widget buildInputField(TextEditingController controller) {
-    return TextFormField(
-      cursorColor: Colors.blue.shade300,
-      controller: controller,
-      focusNode: focusNode,
-      decoration: InputDecoration(
-        hintText: 'Example: 192.168.1.56:80',
-        suffixIcon: Icon(
-          Icons.done,
-          color: isFocused ? Colors.blue : Colors.blue.shade300,
-        ),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-              color: Colors.blue.shade300,
-              width: 1), // Warna garis bawah saat tidak fokus
-        ),
-        focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(
-              color: Colors.blue, width: 2), // Warna garis bawah saat fokus
-        ),
+    return Form(
+      key: formKey,
+      child: Column(
+        children: [
+          TextFormField(
+            cursorColor: Colors.blue.shade300,
+            controller: controller,
+            focusNode: focusNode,
+            validator: validateIpAddress,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            decoration: InputDecoration(
+              hintText: 'Example: 192.168.1.56:80',
+              // suffixIcon: Icon(
+              //   isIpValid ? Icons.done : Icons.close_rounded,
+              //   color: isIpValid
+              //       ? (isFocused ? Colors.blue : Colors.blue.shade300)
+              //       : (isFocused ? Colors.red.shade900 : Colors.red),
+              // ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.blue.shade300, width: 1),
+              ),
+              focusedBorder: const UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.blue, width: 2),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -345,17 +371,30 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
     );
   }
 
+  // Connect button
   Widget buildConnectButton(context) {
     return ElevatedButton(
         onPressed: () {
           // Controller.getApi(ipAddress.hashCode);
           // Navigator.pushReplacementNamed(context, '/connectionProgressPage');
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (context) => ConnectionProgressPage(
-                  id: ipAddress.text), // Kirim parameter id
-            ),
-          );
+          // setState(() {
+          //   isIpValid = false;
+          // });
+
+          if (formKey.currentState!.validate()) {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => ConnectionProgressPage(
+                    id: ipAddress.text), // Kirim parameter id
+              ),
+            );
+          }
+          // Navigator.of(context).pushReplacement(
+          //   MaterialPageRoute(
+          //     builder: (context) => ConnectionProgressPage(
+          //         id: ipAddress.text), // Kirim parameter id
+          //   ),
+          // );
         },
         style: ElevatedButton.styleFrom(
             shape: const StadiumBorder(),
