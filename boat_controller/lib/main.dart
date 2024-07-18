@@ -20,11 +20,11 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // theme: ThemeData(
-      //   textSelectionTheme: TextSelectionThemeData(
-      //     selectionHandleColor: Colors.blue.shade300,
-      //   ),
-      // ),
+      theme: ThemeData(
+        textSelectionTheme: TextSelectionThemeData(
+          selectionHandleColor: Colors.blue.shade300,
+        ),
+      ),
       home: const ConnectionFormPage(),
       routes: {
         // '/connectionProgressPage': (context) => const ConnectionProgressPage( id: ipAddress.hashCode),

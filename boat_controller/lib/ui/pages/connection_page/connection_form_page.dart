@@ -49,14 +49,22 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
   }
 
   String? validateIpAddress(String? ipAddress) {
-    int number = int.parse(ipAddress as String);
-    if (ipAddress == null || ipAddress.isEmpty || number is int) {
+    if (ipAddress == null || ipAddress.isEmpty) {
       return 'Please fill a number value';
-    } else if (int.parse(ipAddress as String) <= 0) {
-      return 'Please fill a number more than 0';
-    } else {
-      return null;
     }
+
+    int? number;
+    try {
+      number = int.parse(ipAddress);
+    } catch (e) {
+      return 'Please enter a valid number';
+    }
+
+    if (number <= 0) {
+      return 'Please fill a number more than 0';
+    }
+
+    return null;
   }
 
   List<String> listItem = [
@@ -224,6 +232,7 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
             cursorColor: Colors.blue.shade300,
             controller: controller,
             focusNode: focusNode,
+            // keyboardType: TextInputType.number,
             validator: validateIpAddress,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: InputDecoration(
@@ -297,60 +306,72 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
                   context: context,
                   builder: (BuildContext context) {
                     String newLocation = '';
-                    return AlertDialog(
-                      title: buildText("Add Monitoring Location", 18),
-                      content: TextField(
-                        onChanged: (value) {
-                          newLocation = value;
-                        },
-                        cursorColor: Colors.blue.shade300,
-                        // controller: controller,
-                        // focusNode: focusNode,
-                        decoration: InputDecoration(
-                          hintText: 'Example: Danau ITK',
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.blue.shade300,
-                                width: 1), // Warna garis bawah saat tidak fokus
-                          ),
-                          focusedBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.blue,
-                                width: 2), // Warna garis bawah saat fokus
+                    return SizedBox(
+                      child: AlertDialog(
+                        title: buildText("Add Monitoring Location", 18),
+                        content: Form(
+                          // key: formKey,
+                          child: TextFormField(
+                            onChanged: (value) {
+                              newLocation = value;
+                            },
+                            cursorColor: Colors.blue.shade300,
+                            // controller: controller,
+                            // focusNode: focusNode,
+                            validator: (nameLocation) =>
+                                nameLocation!.length <= 3
+                                    ? 'Location Name should more than 3 letters'
+                                    : null,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            decoration: InputDecoration(
+                              hintText: 'Example: Danau ITK',
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.blue.shade300,
+                                    width:
+                                        1), // Warna garis bawah saat tidak fokus
+                              ),
+                              focusedBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.blue,
+                                    width: 2), // Warna garis bawah saat fokus
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            setState(() {
-                              if (listItem.contains(newLocation)) {
-                                buildSnackBar(
-                                    context,
-                                    Colors.orange,
-                                    Icons.warning_amber_outlined,
-                                    "Location name already exists");
-                              } else {
-                                if (newLocation.isNotEmpty) {
-                                  valueChoose = newLocation;
-                                  if (!listItem.contains(newLocation)) {
-                                    listItem.add(newLocation);
-                                  }
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              setState(() {
+                                if (listItem.contains(newLocation)) {
                                   buildSnackBar(
                                       context,
-                                      Colors.green,
-                                      Icons.done_rounded,
-                                      "Location name successfuly added");
+                                      Colors.orange,
+                                      Icons.warning_amber_outlined,
+                                      "Location name already exists");
+                                } else {
+                                  if (newLocation.isNotEmpty) {
+                                    valueChoose = newLocation;
+                                    if (!listItem.contains(newLocation)) {
+                                      listItem.add(newLocation);
+                                    }
+                                    buildSnackBar(
+                                        context,
+                                        Colors.green,
+                                        Icons.done_rounded,
+                                        "Location name successfuly added");
+                                  }
                                 }
-                              }
-                              Navigator.of(context).pop();
-                            });
-                          },
-                          child: Text('Add',
-                              style: GoogleFonts.firaSans(
-                                  color: Colors.grey.shade800)),
-                        ),
-                      ],
+                                Navigator.of(context).pop();
+                              });
+                            },
+                            child: Text('Add',
+                                style: GoogleFonts.firaSans(
+                                    color: Colors.grey.shade800)),
+                          ),
+                        ],
+                      ),
                     );
                   },
                 );
