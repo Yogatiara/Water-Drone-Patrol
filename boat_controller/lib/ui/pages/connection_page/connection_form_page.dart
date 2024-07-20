@@ -3,6 +3,7 @@ import 'package:boat_controller/ui/pages/connection_page/connection_progress_pag
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final formKey = GlobalKey<FormState>();
 
@@ -22,7 +23,8 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
   bool isFocused = false;
   bool isIpValid = true;
 
-  TextEditingController ipAddress = TextEditingController();
+  TextEditingController ipAddressController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -40,10 +42,21 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
 
   @override
   void dispose() {
-    // ipAddress.removeListener(validateIpAddress as VoidCallback);
-    ipAddress.dispose();
+    ipAddressController.dispose();
     focusNode.dispose();
     super.dispose();
+  }
+
+  Future<void> setMonitoringConfiguration() async {
+    final prefs = await SharedPreferences.getInstance();
+    Map<String, String> data = {
+      'location': valueChoose.toString(),
+      'ipAddress': ipAddressController.text.toString(),
+    };
+
+    for (var entry in data.entries) {
+      await prefs.setString(entry.key, entry.value);
+    }
   }
 
   String? validateIpAddress(String? ipAddress) {
@@ -65,6 +78,7 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
     return null;
   }
 
+  // data dumy
   List<String> listItem = [
     "Danau itk",
     "Waduk manggar",
@@ -209,7 +223,7 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
         const SizedBox(
           height: 10,
         ),
-        buildInputField(ipAddress),
+        buildInputField(ipAddressController),
       ],
     );
   }
@@ -235,12 +249,6 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: InputDecoration(
               hintText: 'Example: 192.168.1.56:80',
-              // suffixIcon: Icon(
-              //   isIpValid ? Icons.done : Icons.close_rounded,
-              //   color: isIpValid
-              //       ? (isFocused ? Colors.blue : Colors.blue.shade300)
-              //       : (isFocused ? Colors.red.shade900 : Colors.red),
-              // ),
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.blue.shade300, width: 1),
               ),
@@ -255,7 +263,7 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
   }
 
   Widget buildDropdownField() {
-    String value = "choose location";
+    // String value = "";
     return Container(
       padding: const EdgeInsets.only(left: 5),
       decoration: BoxDecoration(
@@ -280,12 +288,12 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
           });
         },
         items: [
-          DropdownMenuItem(
-              value: value,
-              child: Text(
-                value,
-                style: GoogleFonts.firaSans(color: Colors.grey.shade800),
-              )),
+          // DropdownMenuItem(
+          //     value: value,
+          //     child: Text(
+          //       value,
+          //       style: GoogleFonts.firaSans(color: Colors.grey.shade800),
+          //     )),
           ...listItem.map((valueItem) {
             return DropdownMenuItem(
               value: valueItem,
@@ -308,14 +316,11 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
                       child: AlertDialog(
                         title: buildText("Add Monitoring Location", 18),
                         content: Form(
-                          // key: formKey,
                           child: TextFormField(
                             onChanged: (value) {
                               newLocation = value;
                             },
                             cursorColor: Colors.blue.shade300,
-                            // controller: controller,
-                            // focusNode: focusNode,
                             validator: (nameLocation) =>
                                 nameLocation!.length <= 3
                                     ? 'Location Name should more than 3 letters'
@@ -326,14 +331,11 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
                               hintText: 'Example: Danau ITK',
                               enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.blue.shade300,
-                                    width:
-                                        1), // Warna garis bawah saat tidak fokus
+                                    color: Colors.blue.shade300, width: 1),
                               ),
                               focusedBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Colors.blue,
-                                    width: 2), // Warna garis bawah saat fokus
+                                borderSide:
+                                    BorderSide(color: Colors.blue, width: 2),
                               ),
                             ),
                           ),
@@ -394,26 +396,15 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
   Widget buildConnectButton(context) {
     return ElevatedButton(
         onPressed: () {
-          // Controller.getApi(ipAddress.hashCode);
-          // Navigator.pushReplacementNamed(context, '/connectionProgressPage');
-          // setState(() {
-          //   isIpValid = false;
-          // });
-
           if (formKey.currentState!.validate()) {
+            setMonitoringConfiguration();
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => ConnectionProgressPage(
-                    id: ipAddress.text), // Kirim parameter id
+                builder: (context) =>
+                    ConnectionProgressPage(id: ipAddressController.text),
               ),
             );
           }
-          // Navigator.of(context).pushReplacement(
-          //   MaterialPageRoute(
-          //     builder: (context) => ConnectionProgressPage(
-          //         id: ipAddress.text), // Kirim parameter id
-          //   ),
-          // );
         },
         style: ElevatedButton.styleFrom(
             shape: const StadiumBorder(),

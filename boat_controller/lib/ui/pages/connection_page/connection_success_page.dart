@@ -1,13 +1,43 @@
 import 'package:boat_controller/ui/font/app_font.dart';
+import 'package:boat_controller/ui/pages/controller_page.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ConnectionSuccessPage extends StatelessWidget {
+class ConnectionSuccessPage extends StatefulWidget {
   const ConnectionSuccessPage({super.key});
 
   @override
+  State<ConnectionSuccessPage> createState() => _ConnectionSuccessPageState();
+}
+
+class _ConnectionSuccessPageState extends State<ConnectionSuccessPage> {
+  late AppFonts appFonts;
+
+  @override
+  void initState() {
+    super.initState();
+    appFonts = AppFonts();
+  }
+
+  Future<void> getMonitoringConfiguration() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    String locationValue = prefs.getString('location') ?? 'defaultLocation';
+    String ipAddressValue = prefs.getString('ipAddress') ?? 'defaultIpAddress';
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => ControllerPage(
+          location: locationValue,
+          ipAddress: ipAddressValue,
+        ),
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    AppFonts appFonts = AppFonts();
     return Scaffold(
       body: Center(
         child: Column(
@@ -24,7 +54,7 @@ class ConnectionSuccessPage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/controllerPage');
+                getMonitoringConfiguration();
               },
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size.fromWidth(110),

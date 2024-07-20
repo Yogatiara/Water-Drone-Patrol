@@ -15,6 +15,7 @@ dependencies:
   network_info_plus: ^5.0.3
   flutter_native_splash: ^2.4.0
   lottie: ^3.1.2
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:

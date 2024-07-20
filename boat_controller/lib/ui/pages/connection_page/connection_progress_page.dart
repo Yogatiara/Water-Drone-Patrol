@@ -26,26 +26,21 @@ class _ConnectionProgressPageState extends State<ConnectionProgressPage>
       DeviceOrientation.portraitDown,
     ]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    // try {
-    // await Controller.getApi();
+
     handleApiRequest(widget.id);
   }
 
-  void handleApiRequest(String id) async {
+  Future<void> handleApiRequest(String id) async {
     int number = int.parse(id);
     try {
       await Controller.getApi(number);
-      print(id);
 
       log('Success api');
       Future.delayed(const Duration(seconds: 5), () {
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (_) => const ConnectionSuccessPage()));
       });
-      // log('API Response: ${result.data}');
     } catch (e) {
-      print(id);
-
       log('Failed to load data: $e');
       Future.delayed(const Duration(seconds: 7), () {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -53,13 +48,6 @@ class _ConnectionProgressPageState extends State<ConnectionProgressPage>
       });
     }
   }
-
-  // @override
-  // void dispose() {
-  //   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-  //       overlays: SystemUiOverlay.values);
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {
