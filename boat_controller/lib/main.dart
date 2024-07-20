@@ -25,7 +25,7 @@ class MainApp extends StatelessWidget {
           selectionHandleColor: Colors.blue.shade300,
         ),
       ),
-      home: const ConnectionFormPage(),
+      home: const ControllerPage(),
       routes: {
         // '/connectionProgressPage': (context) => const ConnectionProgressPage( id: ipAddress.hashCode),
         '/connectionFormPage': (context) => const ConnectionFormPage(),

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:boat_controller/model/controller.dart';
 import 'package:boat_controller/ui/pages/connection_page/connection_progress_page.dart';
 import 'package:flutter/material.dart';

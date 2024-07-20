@@ -17,16 +17,27 @@ class ControllerPage extends StatefulWidget {
 
 class _ControllerPageState extends State<ControllerPage> {
   Controller? controller;
-  bool isSwitched = false;
   Color buttonColor = Colors.blue;
   Timer? _timer;
-
+  String messValue = "OFF";
   bool isPressedLeft = false;
   bool isPressedRight = false;
   bool isPressedGas = false;
+  bool isSwitched = false;
+
   // WidgetsFlutterBinding.ensureInitialized();
   // SystemChrome.setPreferredOrientations(
   //     [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+
+  void changeMessage() {
+    setState(() {
+      if (isSwitched) {
+        messValue = "ON";
+      } else {
+        messValue = "OFF";
+      }
+    });
+  }
 
   @override
   void initState() {
@@ -77,14 +88,58 @@ class _ControllerPageState extends State<ControllerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text(
-            "Water Drone Patrol Controller",
-            style: GoogleFonts.firaSans(
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Water Drone Patrol Controller",
+              style: GoogleFonts.firaSans(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
-          ),
+            Row(
+              children: [
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.location_on_sharp,
+                      color: Colors.red,
+                    ),
+                    const SizedBox(
+                      width: 6,
+                    ),
+                    Text(
+                      "Kolam itk",
+                      style: GoogleFonts.firaSans(fontSize: 17),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Row(
+                  children: [
+                    Image.asset(
+                      'assets/icons/ip-address.png',
+                      width: 23,
+                      height: 23,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      "Kolam itk",
+                      style: GoogleFonts.firaSans(fontSize: 17),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
         backgroundColor: const Color.fromRGBO(93, 174, 255, 1.0),
         shadowColor: Colors.black54,
@@ -94,37 +149,11 @@ class _ControllerPageState extends State<ControllerPage> {
         padding: const EdgeInsets.only(top: 18),
         child: Column(
           children: [
-            Container(
-              width: 350,
-              // height: 100,
-              padding: const EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(131, 187, 222, 251),
-                borderRadius: BorderRadius.circular(15), // Radius sudut 15
-              ),
-              // padding: const EdgeInsets.symmetric(horizontal: 250),
-              child: SwitchListTile(
-                title: Text(
-                  'Water Quality Detection',
-                  style: GoogleFonts.firaSans(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                value: isSwitched,
-                onChanged: (value) {
-                  setState(() {
-                    isSwitched = value;
-                  });
-                  log('$isSwitched');
-                },
-                activeColor: Colors.blue,
-              ),
-            ),
             const SizedBox(
-              height: 12,
+              height: 50,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Row(
                   children: [
@@ -166,6 +195,7 @@ class _ControllerPageState extends State<ControllerPage> {
                       ),
                     ),
                     // ),
+
                     const SizedBox(width: 30),
                     GestureDetector(
                       onLongPress: () {
@@ -205,6 +235,50 @@ class _ControllerPageState extends State<ControllerPage> {
                           )),
                     ),
                   ],
+                ),
+                // Switch
+                Container(
+                  width: 240,
+                  // height: 100,
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(131, 187, 222, 251),
+                    borderRadius: BorderRadius.circular(15), // Radius sudut 15
+                  ),
+                  // padding: const EdgeInsets.symmetric(horizontal: 250),
+                  child: SwitchListTile(
+                    title: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Detection ',
+                            style: GoogleFonts.firaSans(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          TextSpan(
+                            text: messValue,
+                            style: GoogleFonts.firaSans(
+                              fontWeight: FontWeight.bold,
+                              color: isSwitched
+                                  ? Colors.green
+                                  : Colors
+                                      .red, // Ganti 'Colors.red' dengan warna yang Anda inginkan
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    value: isSwitched,
+                    onChanged: (value) {
+                      setState(() {
+                        isSwitched = value;
+                        changeMessage();
+                      });
+                      log('$isSwitched');
+                    },
+                    activeColor: Colors.blue,
+                  ),
                 ),
                 // Space between rows
                 GestureDetector(
