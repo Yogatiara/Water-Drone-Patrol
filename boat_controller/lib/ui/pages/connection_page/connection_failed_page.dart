@@ -5,7 +5,13 @@ import 'package:lottie/lottie.dart';
 
 class ConnectionFailedPage extends StatelessWidget {
   final String ipAddress;
-  const ConnectionFailedPage({super.key, required this.ipAddress});
+  final bool potrait;
+  final double iconSize;
+  const ConnectionFailedPage(
+      {super.key,
+      required this.ipAddress,
+      required this.potrait,
+      required this.iconSize});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +24,8 @@ class ConnectionFailedPage extends StatelessWidget {
           children: [
             Lottie.asset(
               'assets/icons/connection failed.json',
-              width: 300,
-              height: 300,
+              width: iconSize - 100,
+              height: iconSize - 100,
               fit: BoxFit.fill,
             ),
             const SizedBox(
@@ -27,7 +33,7 @@ class ConnectionFailedPage extends StatelessWidget {
             ),
             Text(
               'Connection failed',
-              style: appFonts.connectLabel("connection failed"),
+              style: appFonts.connectLabel("connection failed", potrait),
             ),
             const SizedBox(
               height: 25,
@@ -38,7 +44,7 @@ class ConnectionFailedPage extends StatelessWidget {
                 ElevatedButton(
                     onPressed: () {
                       Navigator.pushReplacementNamed(
-                          context, '/connectionFormPage');
+                          context, '/jumpToControllerPage');
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -59,7 +65,7 @@ class ConnectionFailedPage extends StatelessWidget {
                           width: 5,
                         ),
                         Text(
-                          'Back',
+                          potrait ? 'Back' : 'Back Home',
                           style: AppFonts.buttonBackAndNext,
                         ),
                       ],
@@ -74,7 +80,10 @@ class ConnectionFailedPage extends StatelessWidget {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) => ConnectionProgressPage(
-                              id: ipAddress), // Kirim parameter id
+                            id: ipAddress,
+                            iconSize: iconSize,
+                            potrait: potrait,
+                          ), // Kirim parameter id
                         ),
                       );
                     },

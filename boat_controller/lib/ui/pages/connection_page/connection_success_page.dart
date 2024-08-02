@@ -5,7 +5,10 @@ import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ConnectionSuccessPage extends StatefulWidget {
-  const ConnectionSuccessPage({super.key});
+  final double iconSize;
+  final bool potrait;
+  const ConnectionSuccessPage(
+      {super.key, required this.iconSize, required this.potrait});
 
   @override
   State<ConnectionSuccessPage> createState() => _ConnectionSuccessPageState();
@@ -49,10 +52,11 @@ class _ConnectionSuccessPageState extends State<ConnectionSuccessPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Lottie.asset('assets/icons/connection success.json',
-                width: 350, height: 350),
+                width: widget.iconSize, height: widget.iconSize),
             Text(
               'Connection success',
-              style: appFonts.connectLabel("connection success"),
+              style:
+                  appFonts.connectLabel("connection success", widget.potrait),
             ),
           ],
         ),

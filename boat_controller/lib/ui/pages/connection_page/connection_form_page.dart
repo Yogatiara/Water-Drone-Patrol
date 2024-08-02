@@ -396,8 +396,11 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
             setMonitoringConfiguration();
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) =>
-                    ConnectionProgressPage(id: ipAddressController.text),
+                builder: (context) => ConnectionProgressPage(
+                  id: ipAddressController.text,
+                  iconSize: 350,
+                  potrait: true,
+                ),
               ),
             );
           }

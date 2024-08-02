@@ -79,6 +79,11 @@ class _ControllerPageState extends State<ControllerPage> {
       log('succes: $path');
     } catch (e) {
       if (showAlert) {
+        setState(() {
+          isPressedGas = false;
+          isPressedLeft = false;
+          isPressedRight = false;
+        });
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
@@ -144,7 +149,10 @@ class _ControllerPageState extends State<ControllerPage> {
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
                               builder: (context) => ConnectionProgressPage(
-                                  id: widget.ipAddress), // Kirim parameter id
+                                id: widget.ipAddress,
+                                iconSize: 290,
+                                potrait: false,
+                              ), // Kirim parameter id
                             ),
                           );
                         },

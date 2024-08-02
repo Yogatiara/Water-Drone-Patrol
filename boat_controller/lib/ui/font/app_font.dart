@@ -8,10 +8,10 @@ class AppFonts {
         fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500),
   );
 
-  TextStyle connectLabel(String pages) {
+  TextStyle connectLabel(String pages, bool potrait) {
     return GoogleFonts.roboto(
       textStyle: TextStyle(
-          fontSize: 40,
+          fontSize: potrait ? 40 : 30,
           fontWeight: FontWeight.bold,
           color: pages == "connection progres"
               ? Colors.blue.shade500

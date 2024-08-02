@@ -10,7 +10,13 @@ import 'package:lottie/lottie.dart';
 
 class ConnectionProgressPage extends StatefulWidget {
   final String id;
-  const ConnectionProgressPage({super.key, required this.id});
+  final double iconSize;
+  final bool potrait;
+  const ConnectionProgressPage(
+      {super.key,
+      required this.id,
+      required this.iconSize,
+      required this.potrait});
 
   @override
   State<ConnectionProgressPage> createState() => _ConnectionProgressPageState();
@@ -37,14 +43,21 @@ class _ConnectionProgressPageState extends State<ConnectionProgressPage>
 
       log('Success api');
       Future.delayed(const Duration(seconds: 5), () {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => const ConnectionSuccessPage()));
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (_) => ConnectionSuccessPage(
+                  iconSize: widget.iconSize,
+                  potrait: widget.potrait,
+                )));
       });
     } catch (e) {
       log('Failed to load data: $e');
       Future.delayed(const Duration(seconds: 7), () {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (_) => ConnectionFailedPage(ipAddress: id)));
+            builder: (_) => ConnectionFailedPage(
+                  ipAddress: id,
+                  potrait: widget.potrait,
+                  iconSize: widget.iconSize,
+                )));
       });
     }
   }
@@ -58,10 +71,11 @@ class _ConnectionProgressPageState extends State<ConnectionProgressPage>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Lottie.asset('assets/icons/connection.json',
-                width: 350, height: 350),
+                width: widget.iconSize, height: widget.iconSize),
             Text(
               'Connect to ship....',
-              style: appFonts.connectLabel("connection progres"),
+              style:
+                  appFonts.connectLabel("connection progres", widget.potrait),
             )
           ],
         ),
