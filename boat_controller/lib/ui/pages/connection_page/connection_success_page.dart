@@ -1,5 +1,5 @@
 import 'package:boat_controller/ui/font/app_font.dart';
-import 'package:boat_controller/ui/pages/controller_page.dart';
+import 'package:boat_controller/ui/pages/controller_page/controller_page.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,24 +16,29 @@ class _ConnectionSuccessPageState extends State<ConnectionSuccessPage> {
 
   @override
   void initState() {
+    Future.delayed(const Duration(seconds: 2), () {
+      getMonitoringConfiguration(context);
+    });
+
     super.initState();
     appFonts = AppFonts();
   }
 
-  Future<void> getMonitoringConfiguration() async {
+  Future<void> getMonitoringConfiguration(context) async {
     final prefs = await SharedPreferences.getInstance();
 
     String locationValue = prefs.getString('location') ?? 'defaultLocation';
     String ipAddressValue = prefs.getString('ipAddress') ?? 'defaultIpAddress';
-
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => ControllerPage(
-          location: locationValue,
-          ipAddress: ipAddressValue,
+    if (mounted) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => ControllerPage(
+            location: locationValue,
+            ipAddress: ipAddressValue,
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 
   @override
@@ -49,33 +54,6 @@ class _ConnectionSuccessPageState extends State<ConnectionSuccessPage> {
               'Connection success',
               style: appFonts.connectLabel("connection success"),
             ),
-            const SizedBox(
-              height: 30,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                getMonitoringConfiguration();
-              },
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size.fromWidth(110),
-                elevation: 3,
-                backgroundColor: Colors.blue.shade300,
-                shadowColor: Colors.blue.shade400,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Next',
-                    style: AppFonts.buttonBackAndNext,
-                  ),
-                  const Icon(
-                    Icons.arrow_forward_rounded,
-                    color: Colors.white,
-                  )
-                ],
-              ),
-            )
           ],
         ),
       ),

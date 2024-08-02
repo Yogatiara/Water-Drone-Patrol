@@ -21,11 +21,11 @@ class _ConnectionProgressPageState extends State<ConnectionProgressPage>
   @override
   void initState() {
     super.initState();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    // SystemChrome.setPreferredOrientations([
+    //   DeviceOrientation.portraitUp,
+    //   DeviceOrientation.portraitDown,
+    // ]);
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
     handleApiRequest(widget.id);
   }

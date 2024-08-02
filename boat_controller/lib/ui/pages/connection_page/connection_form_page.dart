@@ -1,7 +1,7 @@
 import 'package:boat_controller/model/controller.dart';
 import 'package:boat_controller/ui/pages/connection_page/connection_progress_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,10 +34,6 @@ class _ConnectionFormPageState extends State<ConnectionFormPage> {
         isFocused = focusNode.hasFocus;
       });
     });
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
   }
 
   @override
